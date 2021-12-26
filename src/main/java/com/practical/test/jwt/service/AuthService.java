@@ -1,7 +1,7 @@
 package com.practical.test.jwt.service;
 
 import com.practical.test.jwt.entity.User;
-import com.practical.test.jwt.repository.UserRepository;
+import com.practical.test.jwt.repository.AuthRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,14 +12,14 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 
 @Service
-public class CustomUserDetailsService implements UserDetailsService {
+public class AuthService implements UserDetailsService {
 
     @Autowired
-    private UserRepository userRepository;
+    private AuthRepository authRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-       User user= userRepository.findByUserName(username);
+       User user= authRepository.findByUserName(username);
        return new org.springframework.security.core.userdetails.User(user.getUserName(),user.getUserPassword(),new ArrayList<>());
     }
 

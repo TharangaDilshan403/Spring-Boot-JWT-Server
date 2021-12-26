@@ -1,7 +1,7 @@
 package com.practical.test.jwt.configuration;
 
 import com.practical.test.jwt.fiter.JWTFilter;
-import com.practical.test.jwt.service.CustomUserDetailsService;
+import com.practical.test.jwt.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,14 +23,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    CustomUserDetailsService customUserDetailsService;
+    AuthService authService;
 
     @Autowired
     private JWTFilter jwtFilter;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customUserDetailsService);
+        auth.userDetailsService(authService);
     }
 
     @Bean
@@ -49,7 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().disable();
-        http.csrf().disable().authorizeRequests().antMatchers("/authenticate")
+        http.csrf().disable().authorizeRequests().antMatchers("/api/v1/auth")
                 .permitAll().antMatchers(HttpMethod.OPTIONS,"/**")
                 .permitAll().anyRequest().authenticated().and().exceptionHandling().and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

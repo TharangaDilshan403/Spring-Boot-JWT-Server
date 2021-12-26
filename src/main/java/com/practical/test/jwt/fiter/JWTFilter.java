@@ -1,6 +1,6 @@
 package com.practical.test.jwt.fiter;
 
-import com.practical.test.jwt.service.CustomUserDetailsService;
+import com.practical.test.jwt.service.AuthService;
 import com.practical.test.jwt.utility.JWTUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,7 +23,7 @@ public class JWTFilter extends OncePerRequestFilter {
     JWTUtility jwtUtility;
 
     @Autowired
-    CustomUserDetailsService service;
+    AuthService service;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

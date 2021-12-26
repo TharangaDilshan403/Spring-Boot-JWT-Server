@@ -1,7 +1,7 @@
 package com.practical.test.jwt;
 
 import com.practical.test.jwt.entity.User;
-import com.practical.test.jwt.repository.UserRepository;
+import com.practical.test.jwt.repository.AuthRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,16 +20,18 @@ import java.util.stream.Stream;
 public class JWTApplication {
 
 	@Autowired
-	UserRepository repository;
+	AuthRepository repository;
 
 	@PostConstruct
 	public void initUsers() {
 		List<User> users = Stream.of(
-				new User(101, "admin", "admin"),
-				new User(102, "user1", "pwd1")
+				new User(101, "admin", "admin","Tharanga Dilshan","galle","TharangaDil98@gmail.com"),
+				new User(102, "user1", "pwd1","user one ","galle","userOne@gmail.com")
 		).collect(Collectors.toList());
 		repository.saveAll(users);
 	}
+
+
 
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {

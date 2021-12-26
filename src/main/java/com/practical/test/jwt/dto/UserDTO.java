@@ -1,27 +1,18 @@
-package com.practical.test.jwt.entity;
-
+package com.practical.test.jwt.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "USER_TABLE")
-public class User {
+@NoArgsConstructor
+public class UserDTO {
 
-    @Id
     Integer userId;
     String userName;
     String userPassword;
     String fullName;
     String address;
     String emailAddress;
-
 }

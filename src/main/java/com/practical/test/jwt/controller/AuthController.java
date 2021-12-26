@@ -11,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api/v1/auth")
 public class AuthController {
 
     @Autowired
@@ -20,14 +21,22 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
 
 
-    @GetMapping
-    public ResponseEntity save(){
-        return new ResponseEntity(new StandardResponse(200,"Success",null), HttpStatus.OK);
-    }
 
-
-//    jwt
-    @PostMapping("/authenticate")
+    //    jwt token generate api end point
+    //  ====================================
+    //    IN BODY ADD THIS VALUES
+    //    ========================
+    //    {
+    //    "userName" : "admin",
+    //    "userPassword" : "admin"
+    //    }
+    // ============= or  =============
+    //    {
+    //    "userName" : "user1",
+    //    "userPassword" : "user1"
+    //    }
+    // ********** uri : http://localhost:8080/api/v1/auth **********
+    @PostMapping
     public ResponseEntity generateToken(@RequestBody AuthDTO authDTO) throws  Exception{
 
         try{
@@ -39,6 +48,21 @@ public class AuthController {
         }
         String token =jwtUtility.generateToken(authDTO.getUserName());
         return new ResponseEntity(new StandardResponse(200,"Success",token), HttpStatus.CREATED);
+    }
+
+
+    //     jwt token testing  api end point
+    //    ======================================
+    //    IN HEADER ADD THIS VALUES
+    //    ==========================
+    //          keys              values
+    //      Content-Type      application/json
+    //      Authorization     Bearer {token}
+    //
+    // ********** uri : http://localhost:8080/api/v1/auth **********
+    @GetMapping
+    public ResponseEntity save(){
+        return new ResponseEntity(new StandardResponse(200,"Success",null), HttpStatus.OK);
     }
 
 }
